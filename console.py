@@ -10,6 +10,7 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
+from shlex import split
 
 
 class HBNBCommand(cmd.Cmd):
@@ -112,52 +113,30 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         """ Overrides the emptyline method of CMD """
         pass
-
+    
     def do_create(self, args):
-        """ Create an object of any class"""
-        if not args:
+        try:
+            if not args:
+                raise SyntaxError()
+            mylist = args.split(" ")
+            obj = eval("{}()".format(mylist[0]))
+            print("{}".format(obj.id))
+            for num in range(1, len(mylist)):
+                mylist[num] = mylist[num].replace('=', ' ')
+                attributes = split(mylist[num])
+                attributes[1] = attributes[1].replace('_', ' ')
+                try:
+                    var = eval(attributes[1])
+                    attributes[1] = var
+                except:
+                    pass
+                if type(attributes[1]) is not tuple:
+                    setattr(obj, attributes[0], attributes[1])
+            obj.save()
+        except SyntaxError:
             print("** class name missing **")
-            return
-        """ Dan Update: Split the input arguments into a list of words, using
-        space as the default delimiter, then args_list[0] get the first element
-        from the list """
-
-        args_list = args.split()
-        class_name = args_list[0]
-
-        """ Dan Update: Check if class name exist """
-        if class_name not in HBNBCommand.classes:
+        except NameError:
             print("** class doesn't exist **")
-            return
-        new_instance = HBNBCommand.classes[class_name]()
-
-        """ For Loop after the Split to check if the params contain "=" """
-        for param in args_list[1:]:
-            if "=" not in param:
-                continue
-            """ This is to spilt before and after "=" """
-            key, value = param.split("=", 1)
-
-            """ Dan Update: Handling String Value """
-            if value.startswith('"') and value.endswith('"'):
-                """ Remove the surrounded quote """
-                value = value[1:-1]
-                """ Dan Update: Every \\ in the value be escaped with a " """
-                value = value.replace('\\"', '"')
-                value = value.replace('_', ' ')
-            elif '.' in value:
-                try:
-                    value = float(value)
-                except ValueError:
-                    continue
-            else:
-                try:
-                    value = int(value)
-                except ValueError:
-                    continue
-
-        new_instance.save()
-        print(new_instance.id)
 
     def help_create(self):
         """ Help information for the create method """
