@@ -16,8 +16,6 @@ class User(BaseModel, Base):
     """Define relationship with Place (one-to-many)"""
     places = relationship("Place", cascade="all, delete",
                           back_populates="user")
-
-    email = ''
-    password = ''
-    first_name = ''
-    last_name = ''
+    reviews = relationship("Place", cascade="all, delete",
+                          back_populates="user")
+    
