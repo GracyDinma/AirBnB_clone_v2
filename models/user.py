@@ -16,8 +16,8 @@ class User(BaseModel, Base):
     last_name = Column(String(128))
 
     """Define relationship with Place (one-to-many)"""
-    places = relationship("Place", cascade="all, delete",
-                          back_populates="user")
-    reviews = relationship("Place", cascade="all, delete",
-                          back_populates="user")
+    places = relationship("Place", cascade="all, delete, delete-orphan",
+                          backref="user")
+    reviews = relationship("Place", cascade="all, delete, delete-orphan",
+                          backref="user")
     
