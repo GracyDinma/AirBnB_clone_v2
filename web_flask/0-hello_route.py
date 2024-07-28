@@ -1,18 +1,17 @@
 #!/usr/bin/python3
-"""Starts a Flask web application
-"""
-
+"""Starts a Flask web application"""
 
 from flask import Flask
 
+
 app = Flask(__name__)
+
 
 @app.route('/', strict_slashes=False)
 def home():
-    """Route handler for the root URL"""
+    """Return Hello HBNB"""
     return "Hello HBNB!"
 
 
-if __name__ == "__main__":
-    """Run the Flask web application"""
-    app.run(host='0.0.0.0', port=5000,)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
