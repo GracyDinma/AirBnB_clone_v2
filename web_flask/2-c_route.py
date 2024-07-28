@@ -1,8 +1,13 @@
 #!/usr/bin/python3
-"""Starts a Flask web application and add text
+"""Starts a Flask web application
+web application must be listening on 0.0.0.0, port 5000
+/: display “Hello HBNB!”
+/hbnb: display “HBNB”
+/c/<text>: display “C ” followed by the value of the text
+variable (replace underscore _ symbols with a space )
 """
 
-from flask import Flask
+from flask import Flask,escape
 
 
 app = Flask(__name__)
@@ -11,20 +16,19 @@ app = Flask(__name__)
 @app.route('/', strict_slashes=False)
 def home():
     """Return Hello HBNB"""
-    return "Hello HBNB!"
+    return ("Hello HBNB!")
 
 
 @app.route('/hbnb', strict_slashes=False)
 def hbnb():
     """Return HBNB"""
-    return "HBNB"
+    return ("HBNB")
 
 @app.route('/c/<text>', strict_slashes=False)
-def c_with_params(text):
+def c_text(text):
     """Return C followed by the value of the text variable"""
-
-    text_no_underscore = text.replace('_', ' ')
-    return 'C {} '.format(text_no_underscore)
+    text = escape(text).replace('_', ' ')
+    return f"C {text}
 
 
 if __name__ == "__main__":
