@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """
     Sript that starts a Flask web application
  """
@@ -6,7 +7,7 @@ app = Flask(__name__)
 
 
 @app.route('/', strict_slashes=False)
-def hello_hbnb():
+def hello_hbn():
     """
         function to return Hello HBNB!
     """
@@ -29,9 +30,8 @@ def text_var(text):
     return "C {}".format(text.replace("_", " "))
 
 
-
 @app.route('/python/<text>', strict_slashes=False)
-def python_text_var(text="is cool"):
+def text_var_python(text="is cool"):
     """
         function to display text variable, with default "is cool"
     """
@@ -40,9 +40,9 @@ def python_text_var(text="is cool"):
 
 @app.route('/number/<int:n>', strict_slashes=False)
 def var_num(n):
-    """
-        function to display a variable, but only if an int
-    """
-    return "{} is a number".format(n)
+        """
+             function to display a variable, but only if an int
+        """
+        return "{} is a number".format(n)
 if __name__ == '__main__':
         app.run(host='0.0.0.0', port=5000)
