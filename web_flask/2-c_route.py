@@ -1,10 +1,5 @@
 #!/usr/bin/python3
-"""Starts a Flask web application
-web application must be listening on 0.0.0.0, port 5000
-- /: Displays "Hello HBNB!"
-- /hbnb: Displays "HBNB"
-- /c/<text>: Displays "C " followed by the value of the text variable,
-  with underscores replaced by spaces.
+"""Starts a Flask web application and add text
 """
 
 from flask import Flask
@@ -29,7 +24,7 @@ def c_with_params(text):
     """Return C followed by the value of the text variable"""
 
     text_no_underscore = text.replace('_', ' ')
-    return 'C ' + text_no_underscore
+    return 'C {} '.format(text_no_underscore)
 
 
 if __name__ == "__main__":
