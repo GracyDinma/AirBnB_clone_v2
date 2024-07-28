@@ -7,7 +7,7 @@ web application must be listening on 0.0.0.0, port 5000
 variable (replace underscore _ symbols with a space )
 """
 
-from flask import Flask,escape
+from flask import Flask
 
 
 app = Flask(__name__)
@@ -27,7 +27,7 @@ def hbnb():
 @app.route('/c/<text>', strict_slashes=False)
 def c_text(text):
     """Return C followed by the value of the text variable"""
-    text = escape(text).replace('_', ' ')
+    text = text.replace('_', ' ')
     return f"C {text}
 
 
