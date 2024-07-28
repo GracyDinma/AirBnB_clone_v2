@@ -29,7 +29,7 @@ def text_var(text):
     return "C {}".format(text.replace("_", " "))
 
 
-@app.route('/python', strict_slashes=False)
+
 @app.route('/python/<text>', strict_slashes=False)
 def python_text_var(text="is cool"):
     """
@@ -41,7 +41,7 @@ def python_text_var(text="is cool"):
 @app.route('/number/<int:n>', strict_slashes=False)
 def var_num(n):
     """
-        function to display a variable, but only if it is an integer
+        function to display a variable, but only if an int
     """
     return "{} is a number".format(n)
 if __name__ == '__main__':
