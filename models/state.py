@@ -19,13 +19,14 @@ class State(BaseModel):
         cities = relationship("City", cascade="all, delete-orphan",
                               backref="state")
     else:
+
         @property
         def cities(self):
             """Grace updates Getter attribute that returns the list of City
                 instances with state_id equals to the cuurent State."""
             from models import storage
             city_list = []
-            for city in storage.all(City).values():
+            for city in storage.all("City").values():
                 if city.state_id == self.id:
                     city_list.append(city)
             return city_list
